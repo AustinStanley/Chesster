@@ -722,18 +722,32 @@ function(bot, message) {
         }
     });
 });
+;
 
 /* welcome */
+
+String.prototype.shuffle = function() {
+    var a = this.split('');
+    var n = a.length;
+
+    for (var i = n; i; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = a[i];
+        a[i] = a[j];
+        a[j] = tmp;
+    }
+    return a.join('');
+}
 
 chesster.on({event: 'user_channel_join'},
 function(bot, message) {
     bot_exception_handler(bot, message, function(){
         if(_.isEqual(message.channel, channels.getId(chesster.config["welcome"]["channel"]))){
-            bot.reply(message, "Everyone, please welcome the newest member of the " 
+            bot.reply(message, "Everyone, please w" + "elcom".shuffle() + "e the newest member of the " 
                              + "Lichess 45+45 League, <@" + message.user + ">!");
             
             bot.startPrivateConversation(message, function(err, convo){
-               convo.say("Welcome. I am the moderator bot for the Lichess4545 league");
+               convo.say("W" + "elcom".shuffle() + "e. I am the moderator bot for the Lichess4545 league");
                convo.say("Say 'help' to get help."); 
                convo.say("If you joined for the 45+45 league, read this: " 
                    + chesster.config["leagues"]["45+45"].links.faq 
